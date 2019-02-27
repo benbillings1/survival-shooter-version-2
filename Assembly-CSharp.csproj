@@ -94,6 +94,7 @@
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <None Include="Assets\SurvivalShooter_Third-PartyNotice.txt" />
     <None Include="Assets\Fonts\LuckiestGuy\FontLicense.txt" />
+    <None Include="Assets\Citations\Citations.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Benjamin/Documents/Survival Shooter/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

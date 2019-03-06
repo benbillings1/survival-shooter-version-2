@@ -5,10 +5,12 @@ public class PlayerShooting : MonoBehaviour
     public int damagePerShot = 20;
     public float timeBetweenBullets = 0.15f;
     public float range = 100f;
+    public Transform aimingReticle = null;
 
 
     float timer;
     Ray shootRay = new Ray();
+    Ray reticleRay = new Ray();
     RaycastHit shootHit;
     int shootableMask;
     ParticleSystem gunParticles;
@@ -25,6 +27,7 @@ public class PlayerShooting : MonoBehaviour
         gunLine = GetComponent <LineRenderer> ();
         gunAudio = GetComponent<AudioSource> ();
         gunLight = GetComponent<Light> ();
+        
     }
 
 
@@ -32,14 +35,26 @@ public class PlayerShooting : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-		if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+        if (Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
         {
-            Shoot ();
+            Shoot();
+                     
         }
 
         if(timer >= timeBetweenBullets * effectsDisplayTime)
         {
             DisableEffects ();
+        }
+
+        reticleRay.origin = transform.position;
+        reticleRay.direction = transform.forward;
+        if (Physics.Raycast(reticleRay, out shootHit, range, shootableMask))
+        {
+            if (shootHit.collider.gameObject.name == "Enemy")
+            {
+                aimingReticle.position = shootHit.point;
+                
+            }
         }
     }
 

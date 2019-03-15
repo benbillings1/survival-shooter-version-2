@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
         RaycastHit floorHit;
 
-        if(Physics.Raycast (camRay, out floorHit, camRayLength, floorMask))
+        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
         {
             Vector3 playerToMouse = floorHit.point - transform.position;
             playerToMouse.y = 0f;
@@ -57,5 +57,14 @@ public class PlayerMovement : MonoBehaviour
     {
         bool walking = h != 0f || v != 0f;
         anim.SetBool("IsWalking", walking);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ammo"))
+        {
+            other.gameObject.SetActive(false);
+            AmmoManager.ammo += 50;
+        }
     }
 }

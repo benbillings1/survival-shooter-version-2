@@ -7,8 +7,10 @@ public class EnemyHealth : MonoBehaviour
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
+    public GameObject[] pickupPrefabs;
 
 
+    GameObject spawnedPickUp;
     Animator anim;
     AudioSource enemyAudio;
     ParticleSystem hitParticles;
@@ -52,6 +54,14 @@ public class EnemyHealth : MonoBehaviour
         if(currentHealth <= 0)
         {
             Death ();
+            float Chances = Random.value;
+            if (Chances > .85)
+            {
+                SpawnPickup();
+            }
+            
+
+            
         }
     }
 
@@ -76,5 +86,13 @@ public class EnemyHealth : MonoBehaviour
         isSinking = true;
         ScoreManager.score += scoreValue;
         Destroy (gameObject, 2f);
+    }
+
+    void SpawnPickup()
+    {
+        GameObject toSpawn = pickupPrefabs[(int)(Random.value * pickupPrefabs.Length)];
+
+        spawnedPickUp = Instantiate(toSpawn, transform.position, toSpawn.transform.rotation) as GameObject;
+
     }
 }
